@@ -5,7 +5,7 @@ GAP lunar years before the later one, and the opening couplets share 2+ words ou
 (or the later poem's title says so: استقبال، تتبع، ...). Pairs closer in time are kept as
 'contemporaries' (direction unknown); openings that are the same (a half-line repeated word for
 word, or 80%+ of words) are kept as 'same' (quotation or a poem carried in two divans).
-Chance: the same pipeline run on rhymes shuffled within each metre.
+Chance: the same pipeline run on rhymes shuffled within each metre, averaged over ten shuffles.
 Poets dead under 50 years (Iran's copyright term) are left out."""
 import json, collections, re, random
 GAP = 30
@@ -45,24 +45,27 @@ def link(rows):
     return out
 
 A = link(G)
-random.seed(7)
-rh = collections.defaultdict(list)
-for r in G: rh[r['metre']].append(r['rhyme'])
-for v in rh.values(): random.shuffle(v)
-it = {m: iter(v) for m, v in rh.items()}
-S = [dict(r, rhyme=next(it[r['metre']])) for r in G]
-B = link(S)
+# chance: the same pipeline on rhymes shuffled within each metre, averaged over ten shuffles
+SEEDS = 10
+B = []
+for seed in range(SEEDS):
+    random.seed(seed)
+    rh = collections.defaultdict(list)
+    for r in G: rh[r['metre']].append(r['rhyme'])
+    for v in rh.values(): random.shuffle(v)
+    it = {m: iter(v) for m, v in rh.items()}
+    B += link([dict(r, rhyme=next(it[r['metre']])) for r in G])
 
 ce = lambda ah: round(ah * 0.970229 + 621.5693)
-print('tiers', collections.Counter(a['tier'] for a in A), 'chance', collections.Counter(a['tier'] for a in B))
+print('tiers', collections.Counter(a['tier'] for a in A), 'chance (mean)', {k: v / SEEDS for k, v in collections.Counter(a['tier'] for a in B).items()})
 n = collections.Counter(ce(r['y']) // 100 for r in G)
 obs = collections.Counter(ce(G[a['a']]['y']) // 100 for a in A if a['tier'] == 'answer')
 chn = collections.Counter(ce(G[a['a']]['y']) // 100 for a in B if a['tier'] == 'answer')
 cent = []
 for k in sorted(n):
     if n[k] < 50: continue
-    cent.append(dict(c=k * 100, n=n[k], answers=obs[k], chance=chn[k]))
-    print(f"{k}00s  n={n[k]:6d}  answers={obs[k]:4d} {obs[k]/n[k]:.3f}  chance={chn[k]:3d} {chn[k]/n[k]:.3f}")
+    cent.append(dict(c=k * 100, n=n[k], answers=obs[k], chance=round(chn[k] / SEEDS, 1)))
+    print(f"{k}00s  n={n[k]:6d}  answers={obs[k]:4d} {obs[k]/n[k]:.3f}  chance={chn[k]/SEEDS:.1f} {chn[k]/SEEDS/n[k]:.3f}")
 ans = [a for a in A if a['tier'] == 'answer']
 out_n = collections.Counter(r['poet'] for r in G)
 got = collections.Counter(G[a['to']]['poet'] for a in ans)
