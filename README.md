@@ -16,3 +16,16 @@ The data and analysis behind *What the Poets Answered* (Readings, Otherwise No. 
 `data/chance_mean.json` and `data/web/` (what the piece reads) are committed. The raw crawl,
 `data/sections.jsonl` (65 MB), is not; run `crawl/crawl.py` to rebuild it. Poets who died less than fifty
 years ago are left out of everything committed here.
+
+## Licence and how to cite
+
+- **Code**: MIT (`LICENSE`).
+- **The piece** (its words, drawings, data and design, as published at https://hamedyaghoobian.com/readings-otherwise/what-the-poets-answered/): [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Use it, change it, teach with it; say where it came from.
+- **What comes from elsewhere keeps its own terms:**
+  - The ghazals are in the public domain; their typed texts, metres and rhymes are [Ganjoor](https://ganjoor.net)'s, and the opening couplets in `data/` are quoted from it.
+
+To cite it:
+
+> Yaghoobian, Hamed. 2026. "What the Poets Answered." *Readings, Otherwise*, no. 7. Interactive work, 18 November 2026. https://hamedyaghoobian.com/readings-otherwise/what-the-poets-answered/
+
+`CITATION.cff` has the same, and GitHub's "Cite this repository" reads it. It was made with Claude, a language model, as its colophon says.

@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite the piece as below."
+title: "What the Poets Answered: code and data"
+type: software
+authors:
+  - family-names: Yaghoobian
+    given-names: Hamed
+date-released: 2026-11-18
+license: MIT
+url: "https://hamedyaghoobian.com/readings-otherwise/what-the-poets-answered/"
+repository-code: "https://github.com/hamedyaghoobian/ghazal-answers"
+preferred-citation:
+  type: art
+  title: "What the Poets Answered"
+  authors:
+    - family-names: Yaghoobian
+      given-names: Hamed
+  year: 2026
+  month: 11
+  collection-title: "Readings, Otherwise"
+  issue: "7"
+  medium: "Interactive work"
+  url: "https://hamedyaghoobian.com/readings-otherwise/what-the-poets-answered/"
+  license: CC-BY-4.0
