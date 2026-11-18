@@ -12,4 +12,7 @@ The data and analysis behind *What the Poets Answered* (Readings, Otherwise No. 
   'contemporary', identical openings 'same'. The same pipeline on shuffled rhymes gives chance.
 - `analysis/export.py` writes the web data the piece reads.
 
-`data/` is not committed; run the crawl to rebuild it.
+`data/answers.json` (every ghazal kept, every answer, and the chance counts per century), `data/poets.json`,
+`data/chance_mean.json` and `data/web/` (what the piece reads) are committed. The raw crawl,
+`data/sections.jsonl` (65 MB), is not; run `crawl/crawl.py` to rebuild it. Poets who died less than fifty
+years ago are left out of everything committed here.

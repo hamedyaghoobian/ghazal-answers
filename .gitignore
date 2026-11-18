@@ -1,2 +1,4 @@
-data/
 .DS_Store
+data/sections.jsonl
+data/cats_done.txt
+data/crawl.log
